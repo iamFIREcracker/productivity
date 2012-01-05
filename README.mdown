@@ -2,6 +2,11 @@
 
 ## Setup
 
+Clone this repository:
+
+    cd ~/workspace
+    git://github.com/iamFIREcracker/productivity.git
+
 Make sure the following lines are present inside your **.bashrc**:
 
     # move automatically inside last used directory
@@ -35,6 +40,8 @@ Make sure the following lines are present inside your **.bashrc**:
     alias f='bash ~/workspace/productivity/productivity.sh prompt frequently'
     alias r='bash ~/workspace/productivity/productivity.sh prompt recently'
     alias p='bash ~/workspace/productivity/productivity.sh'
+
+*Voila`*
 
 ## Credits
 http://matt.might.net/articles/console-hacks-exploiting-frequency/
