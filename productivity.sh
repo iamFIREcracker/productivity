@@ -3,6 +3,11 @@
 # Path of the database used to keep track of directory hit counters.
 PRODUCTIVITY_DATABASE=~/.productivity/productivity.sqlite
 
+# Period (in seconds) of inactivity which causes a certain directory to be
+# removed from the database:
+#   1 week = 60 seconds * 60 minutes * 24 hours * 7 days = 604800 
+PRODUCTIVITY_INACTIVITY=604800
+
 
 function prod_used() {
     local kind
@@ -57,8 +62,18 @@ update)
     ;;
 
 damp)
-    # Remove directory hits older than one week.
-    echo "Not yet implemented"
+    # Remove hits older than one week.
+    query="delete
+            from dircounts
+            where path in (
+                select path
+                from dircounts
+                where strftime('%s', 'now') - strftime('%s', time) > ${PRODUCTIVITY_INACTIVITY}
+                group by path
+                having count(*) > 1
+                order by time desc
+            );"
+    echo ${query} | sqlite3 ${PRODUCTIVITY_DATABASE}
     ;;
 
 list)
