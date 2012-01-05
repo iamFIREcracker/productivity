@@ -23,7 +23,7 @@ Make sure the following lines are present inside your **.bashrc**:
         current="`pwd`"
         if [ "${current}" != "${PRODUCTIVITY_LASTDIR}" ]; then
             # update directory count
-            bash ~/workspace/productivity/productivity.sh update "${current}"
+            ~/workspace/productivity/productivity.sh update "${current}"
             export PRODUCTIVITY_LASTDIR="${current}"
 
             # list more recent content
@@ -37,9 +37,14 @@ Make sure the following lines are present inside your **.bashrc**:
 
     export PRODUCTIVITY_LASTDIR="`pwd`"
     export PROMPT_COMMAND="productivity_update"
-    alias f='bash ~/workspace/productivity/productivity.sh prompt frequently'
-    alias r='bash ~/workspace/productivity/productivity.sh prompt recently'
-    alias p='bash ~/workspace/productivity/productivity.sh'
+    alias f='~/workspace/productivity/productivity.sh prompt frequently'
+    alias r='~/workspace/productivity/productivity.sh prompt recently'
+    alias p='~/workspace/productivity/productivity.sh'
+
+Add a new job inside your **crontab** which is going to wipe off stale entries
+contained inside the database:
+
+    * * * * 0 ~/workspace/productivity/productivity.sh damp
 
 *Voila`*
 
