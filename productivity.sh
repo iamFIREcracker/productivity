@@ -96,7 +96,7 @@ prompt)
     destination="${choices[${REPLY:-' '}]}"
     if [ -n "${destination}" ]; then
         echo "${destination}" > ~/.lastdir
-        bash --login
+        cd "${destination}"
     fi
     ;;
 esac
