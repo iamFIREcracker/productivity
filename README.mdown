@@ -1,0 +1,41 @@
+# productivity - more productivity with your bash shell
+
+## Setup
+
+Make sure the following lines are present inside your **.bashrc**:
+
+:::bash
+    # move automatically inside last used directory
+    if [ -f ~/.lastdir ]; then
+        cd "`cat ~/.lastdir`"
+    fi
+
+    O
+    # prompt_command callback: update directory counter, save the current directory
+    # and (optionally) list last edited files.
+    function productivity_update() {
+        local current
+
+        current="`pwd`"
+        if [ "${current}" != "${PRODUCTIVITY_LASTDIR}" ]; then
+            # update directory count
+            bash ~/workspace/productivity/productivity.sh update "${current}"
+            export PRODUCTIVITY_LASTDIR="${current}"
+
+            # list more recent content
+            ls -tAl | head -7
+        fi
+
+        # we need to update .lastdir because another shell could have modified it
+        # but we are the most recent process active
+        echo "${current}" > ~/.lastdir
+    }
+
+    export PRODUCTIVITY_LASTDIR="`pwd`"
+    export PROMPT_COMMAND="productivity_update"
+    alias f='bash ~/workspace/productivity/productivity.sh prompt frequently'
+    alias r='bash ~/workspace/productivity/productivity.sh prompt recently'
+    alias p='bash ~/workspace/productivity/productivity.sh'
+
+## Credits
+http://matt.might.net/articles/console-hacks-exploiting-frequency/
