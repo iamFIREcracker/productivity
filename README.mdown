@@ -4,7 +4,6 @@
 
 Make sure the following lines are present inside your **.bashrc**:
 
-:::bash
     # move automatically inside last used directory
     if [ -f ~/.lastdir ]; then
         cd "`cat ~/.lastdir`"
