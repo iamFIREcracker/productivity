@@ -27,7 +27,7 @@ function prod_used() {
                 limit 7;"
     fi
 
-    echo ${query} | sqlite3 ${PRODUCTIVITY_DATABASE} | sed 's/|/\t/'
+    echo ${query} | sqlite3 ${PRODUCTIVITY_DATABASE} | sed 's/|/	/'
 }
 
 
