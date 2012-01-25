@@ -102,4 +102,7 @@ prompt)
         cd "${destination}"
     fi
     ;;
+
+*)
+    echo WTF?
 esac
