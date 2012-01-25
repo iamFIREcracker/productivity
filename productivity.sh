@@ -83,17 +83,20 @@ list)
 
 prompt)
     kind=$2
+    destination=$3
 
-    declare -A choices
-    set a s d f j k l
-    while read path; do
-        choices[$1]=$path
-        echo "$1 -> $path"
-        shift
-    done< <(prod_used ${kind} | sed 's/[0-9: \-]*//')
+    if [ -z "${destination}" ]; then
+        declare -A choices
+        set a s d f j k l
+        while read path; do
+            choices[$1]=$path
+            echo "$1 -> $path"
+            shift
+        done< <(prod_used ${kind} | sed 's/[0-9: \-]*//')
 
-    read -p "? "
-    destination="${choices[${REPLY:-' '}]}"
+        read -p "? "
+        destination="${choices[${REPLY:-' '}]}"
+    fi
     if [ -n "${destination}" ]; then
         echo "${destination}" > ~/.lastdir
         cd "${destination}"
