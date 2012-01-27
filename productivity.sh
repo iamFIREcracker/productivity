@@ -85,7 +85,13 @@ prompt)
     kind=$2
     destination=$3
 
-    if [ -z "${destination}" ]; then
+    if [ -n "${destination}" ]; then
+        query="select path
+               from dircounts
+               where path like '%${destination}'
+               limit 1;"
+        destination=$(echo ${query} | sqlite3 ${PRODUCTIVITY_DATABASE})
+    else
         declare -A choices
         set a s d f j k l
         while read path; do
