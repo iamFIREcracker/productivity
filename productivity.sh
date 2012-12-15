@@ -89,6 +89,8 @@ prompt)
         query="select path
                from dircounts
                where path like '%${destination}'
+               group by path
+               order by count(*) desc
                limit 1;"
         destination=$(echo ${query} | sqlite3 ${PRODUCTIVITY_DATABASE})
     else
